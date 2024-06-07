@@ -1,24 +1,17 @@
-data "aws_ami" "app_ami" {
-  most_recent = true
+resource "google_compute_instance" "vm_instance" {
+  name         = "terraform-instance"
+  machine_type = "e2-micro"
 
-  filter {
-    name   = "name"
-    values = ["bitnami-tomcat-*-x86_64-hvm-ebs-nami"]
+  boot_disk {
+    initialize_params {
+      image = "debian-cloud/debian-11"
+    }
   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["979382823631"] # Bitnami
-}
-
-resource "aws_instance" "web" {
-  ami           = data.aws_ami.app_ami.id
-  instance_type = "t3.nano"
-
-  tags = {
-    Name = "HelloWorld"
+  network_interface {
+    # A default network is created for all GCP projects
+    network = "default"
+    access_config {
+    }
   }
 }

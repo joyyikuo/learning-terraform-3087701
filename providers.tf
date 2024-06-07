@@ -1,11 +1,5 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-    }
-  }
-}
-
-provider "aws" {
-  region  = "us-west-2"
+provider "google" {
+  project = "terraform-learning-715"
+  region  = "us-central1"
+  zone    = "us-central1-c"
 }
